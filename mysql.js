@@ -1,6 +1,6 @@
 const mysql = require('mysql2');
 
-const pool = mysql.createPool({
+const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root',
@@ -8,14 +8,14 @@ const pool = mysql.createPool({
     port: 3307,
 });
 
-exports.execute = (sql, params = []) => {
+exports.execute = (sql, params = [], pool = connection) => {
     return new Promise((resolve, reject) => {
-        pool.query(query, params, (error, results) => {
+        pool.query(sql, params, (error, results) => { // Fix: Changed 'query' to 'sql'
             if (error) {
                 reject(error);
-            }else {
+            } else {
                 resolve(results);
             }
         });
     });
-}
+};
