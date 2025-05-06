@@ -36,11 +36,11 @@ exports.cadastraUsuario = async (req, res) => {
             `INSERT INTO users (first_name, last_name, email, password, birth_date, phone)
             VALUES (?, ?, ?, ?, ?, ?)`,
             [req.body.first_name,
-             req.body.last_name, 
-             req.body.email, 
-             hash, 
-             req.body.birth_date, 
-             req.body.phone],
+            req.body.last_name,
+            req.body.email,
+                hash,
+            req.body.birth_date,
+            req.body.phone],
 
         );
 
@@ -61,26 +61,21 @@ exports.login = async (req, res) => {
         const usuario = await mysql.execute(
             'SELECT * FROM users WHERE email = ?',
             [req.body.email]);
-        console.log(usuario);
-
         if (usuario.length == 0) {
             return res.status(401).send({ "Mensagem": "Usuario não encontrado" });
         }
-
-        const hash = await bcrypt.hash(req.body.password, 10);
-        console.log(hash);
         const match = await bcrypt.compare(req.body.password, usuario[0].password);
         if (!match) {
             return res.status(401).send({ "Mensagem": "Senha incorreta" });
         }
-        console.log(match, req.body.password, usuario[0].password);
+        (match, req.body.password, usuario[0].password);
         const token = jwt.sign({
-            id: usuario [0].id,
-            first_name: usuario [0].first_name,
-            last_name: usuario [0].last_name,
-            email: usuario [0].email,
-            birth_date : usuario [0].birth_date,
-            phone: usuario [0].phone
+            id: usuario[0].id,
+            first_name: usuario[0].first_name,
+            last_name: usuario[0].last_name,
+            email: usuario[0].email,
+            birth_date: usuario[0].birth_date,
+            phone: usuario[0].phone
         }, "senhafojwt");
         return res.status(200).send({
             "Mensagem": "Usuario logado com sucesso",
