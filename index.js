@@ -6,6 +6,7 @@ const helmet = require("helmet");
 
 
 const loginRoutes = require("./routes/usuarios.routes");
+const filaRoute = require("./routes/usuarios.filas"); 
 
 app.use(cors());
 app.use(helmet());
@@ -26,5 +27,6 @@ app.use((req, res, next) => {
 });
 
 app.use("/usuarios", loginRoutes);
+app.use("/filas", filaRoute); 
 
 module.exports = app; 
