@@ -10,7 +10,6 @@ const filaRoute = require("./routes/filas.routes");
 const notificationsRoutes = require("./routes/notications.route");
 
 app.use(express.json)
-app.use("/notifications", notificationsRoutes);
 
 app.use(cors());
 app.use(helmet());
@@ -32,5 +31,6 @@ app.use((req, res, next) => {
 
 app.use("/usuarios", loginRoutes);
 app.use("/filas", filaRoute); 
+app.use("/notifications", notificationsRoutes);
 
 module.exports = app; 

@@ -8,7 +8,7 @@ exports.require = async (req, res, next) => {
         const decoded = jwt.verify(token, "senhafojwt");
 
         if (decoded.id) {
-            res.locals.idUsuario = decode.id;
+            res.locals.idUsuario = decoded.id;
             next();
         } else {
             return res.status(401).send({
