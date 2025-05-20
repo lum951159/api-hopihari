@@ -40,7 +40,8 @@ exports.cadastraUsuario = async (req, res) => {
             req.body.email,
             hash,
             req.body.birth_date,
-            req.body.phone]
+            req.body.phone
+            ]
         );
 
         return res.status(201).send({
@@ -74,7 +75,8 @@ exports.login = async (req, res) => {
             last_name: usuario[0].last_name,
             email: usuario[0].email,
             birth_date: usuario[0].birth_date,
-            phone: usuario[0].phone
+            phone: usuario[0].phone,
+            admin: usuario[0].admin // Inclui a propriedade admin
         }, "senhafojwt");
         return res.status(200).send({
             "Mensagem": "Usuario logado com sucesso",

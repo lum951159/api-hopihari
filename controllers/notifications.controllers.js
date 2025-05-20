@@ -4,7 +4,7 @@ exports.getNotificacoes = async (req, res) => {
   try {
     const id_user = res.locals.idUsuario; 
 
-    const query = 'SELECT * FROM notifications WHERE id_user = ? AND ativa = TRUE';
+    const query = 'SELECT * FROM notifications WHERE users_id = ? AND status = TRUE';
     const results = await mysql.execute(query, [id_user]);
     return res.send(201).send({"mensagens": results});
 
