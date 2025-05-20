@@ -9,8 +9,6 @@ const loginRoutes = require("./routes/usuarios.routes");
 const filaRoute = require("./routes/filas.routes"); 
 const notificationsRoutes = require("./routes/notications.route");
 
-app.use(express.json)
-
 app.use(cors());
 app.use(helmet());
 

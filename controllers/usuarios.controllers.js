@@ -38,10 +38,9 @@ exports.cadastraUsuario = async (req, res) => {
             [req.body.first_name,
             req.body.last_name,
             req.body.email,
-                hash,
+            hash,
             req.body.birth_date,
-            req.body.phone],
-console.log(hash)
+            req.body.phone]
         );
 
         return res.status(201).send({
