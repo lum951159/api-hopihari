@@ -10,4 +10,9 @@ router.post(
     brinquedosController.cadastraBrinquedo // Controlador para cadastrar brinquedo
 );
 
+router.get(
+    '/area/:areaName',
+    login.require, brinquedosController.getBrinquedosByAreaName
+);
+
 module.exports = router;
