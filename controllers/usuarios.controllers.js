@@ -37,16 +37,16 @@ exports.cadastraUsuario = async (req, res) => {
     try {
         const hash = await bcrypt.hash(req.body.password, 10);
         const resultado = await mysql.execute(
-            `INSERT INTO users (first_name, last_name, email, password, birth_date, phone, admin)
-            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO users (first_name, last_name, email, password, birth_date, phone)
+            VALUES (?, ?, ?, ?, ?, ?)`,
             [
                 req.body.first_name,
                 req.body.last_name,
                 req.body.email,
                 hash,
                 req.body.birth_date,
-                req.body.phone,
-                req.body.admin || 0
+                req.body.phone
+                
             ]
         );
 

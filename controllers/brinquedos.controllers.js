@@ -24,10 +24,11 @@ exports.cadastraBrinquedo = async (req, res) => {
 
 exports.getBrinquedosByAreaName = async (req, res) => {
     try{
+        const areaName = req.params.areaName.trim();
         resultados = await mysql.execute(
             `SELECT * FROM rides WHERE id_areas = (
             SELECT id FROM areas WHERE name = ?);`,
-            [req.params.areaName]
+            [areaName]
         );
 
     
