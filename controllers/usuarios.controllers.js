@@ -7,16 +7,20 @@ exports.atualizarUsuario = async (req, res) => {
         const idUsuario = Number(req.params.id); // Fix: Correctly extract id from params
 
         const resultado = await mysql.execute(
-            `UPDATE users
-            SET name = ?,
-                email = ?,
-                password = ?
+            `UPDATE users 
+                 SET first_name = ?,
+	                 last_name  = ?,
+                     email      = ?,
+                     phone      = ?,
+                     birth_date = ?
             WHERE id = ?;`,
             [
-                req.body.name,
+                req.body.first_name,
+                req.body.last_name,
                 req.body.email,
-                req.body.password,
-                idUsuario
+                req.body.phone,
+                req.body.birth_date,
+                res.locals.idUsuario
             ]
         );
 
@@ -25,7 +29,7 @@ exports.atualizarUsuario = async (req, res) => {
             "Resultado": resultado
         });
     } catch (error) {
-        return res.status(500).send({error});
+        return res.status(500).send({ error });
     }
 };
 
@@ -33,14 +37,16 @@ exports.cadastraUsuario = async (req, res) => {
     try {
         const hash = await bcrypt.hash(req.body.password, 10);
         const resultado = await mysql.execute(
-            `INSERT INTO users (first_name, last_name, email, password, birth_date, phone)
-            VALUES (?, ?, ?, ?, ?, ?)`,
-            [req.body.first_name,
-            req.body.last_name,
-            req.body.email,
-            hash,
-            req.body.birth_date,
-            req.body.phone
+            `INSERT INTO users (first_name, last_name, email, password, birth_date, phone, admin)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [
+                req.body.first_name,
+                req.body.last_name,
+                req.body.email,
+                hash,
+                req.body.birth_date,
+                req.body.phone,
+                req.body.admin || 0
             ]
         );
 
@@ -52,7 +58,7 @@ exports.cadastraUsuario = async (req, res) => {
 
 
     } catch (error) {
-        return res.status(500).send({ error});
+        return res.status(500).send({ error });
     }
 };
 
@@ -85,6 +91,6 @@ exports.login = async (req, res) => {
         });
 
     } catch (error) {
-        return res.status(500).send({  error });
+        return res.status(500).send({ error });
     }
 }
